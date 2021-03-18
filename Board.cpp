@@ -18,23 +18,38 @@ namespace ariel {
         if (row < 0 || col < 0) {
             throw std::out_of_range("Col or row cannot be negative");
         }
-        const int size = word.size();
-        if (mat.size() < row + size) {
-            mat.resize(row + 1);
-            if (mat.at(row).size() < col) {
-                for (int i = 0; i < row + 1; ++i) {
-                    mat.at(i).resize(col + 1);
+        const int wordSize = word.size();
+        switch (direction) {
+            case Direction::Horizontal:
+                if (mat.size() < row + wordSize + 1) {
+                    mat.resize(row + wordSize + 1);
+                    if (mat.at(row).size() < col + 1) {
+                        for (int i = 0; i < mat.size(); ++i) {
+                            mat.at(i).resize(col + 1);
+                        }
+                    }
                 }
-            }
+                break;
+            case Direction::Vertical:
+                if (mat.size() < row) {
+                    mat.resize(row + 1);
+                    if (mat.at(row).size() < col) {
+                        for (int i = 0; i < row + 1; ++i) {
+                            mat.at(i).resize(col + 1);
+                        }
+                    }
+                }
         }
 
-//        switch(direction) {
-//            case Direction::Horizontal:
-//
-//
-//
-//        }
 
+        for (int i = 0; i < mat.size(); ++i) {
+            for (int j = 0; j < mat.at(0).size(); ++j) {
+                if (mat.at(i).at(j) == "") {
+                    cout << "_";
+                }
+            }
+            cout << endl;
+        }
         cout << mat.size() << endl;
         cout << mat.at(0).size() << endl;
         cout << "Hello There, In Post" << endl;
