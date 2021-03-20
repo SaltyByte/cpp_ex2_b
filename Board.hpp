@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <climits>
 #include "Direction.hpp"
 
 namespace ariel {
@@ -10,10 +12,15 @@ namespace ariel {
     public:
         std::string read(int row, int col, Direction direction, int length);
         void post(int row, int col, Direction direction, const std::string &word);
-        static void show();
+        void show();
 
     private:
-        std::vector<std::vector<std::string>> mat;
+        std::map<int,std::map<int,std::string>> board;
+
+        int rowStart = INT_MAX;
+        int colStart = INT_MAX;
+        int colEnd = 0;
+        int rowEnd = 0;
     };
 }
 
