@@ -10,17 +10,18 @@ using std::string;
 using std::vector;
 
 namespace ariel {
-    string Board::read(int row, int col, Direction direction, int length) {
+    string Board::read(unsigned int row, unsigned int col, Direction direction, int length) {
         if (length < 0) {
             throw std::out_of_range("length needs to be 1 or higher");
         }
         if (board.empty()){
             throw std::out_of_range("empty board");
         }
+
         string ret;
         switch (direction) {
             case Direction::Vertical:{
-                int boardCounter = row;
+                unsigned int boardCounter = row;
                 for (int i = 0; i < length; ++i) {
                     if (board.empty() || board[boardCounter].empty() || board[boardCounter][col].empty()) {
                         ret.append("_");
@@ -33,7 +34,7 @@ namespace ariel {
                 break;
             }
             case Direction::Horizontal:{
-                int boardCounter = col;
+                unsigned int boardCounter = col;
                 for (int i = 0; i < length; ++i) {
                     if (board.empty() || board[row].empty() || board[row][boardCounter].empty()) {
                         ret.append("_");
@@ -49,7 +50,7 @@ namespace ariel {
         return ret;
     }
 
-    void Board::post(int row, int col, Direction direction, const string &word) {
+    void Board::post(unsigned int row,unsigned  int col, Direction direction, const string &word) {
         if (word.empty()) {
             return;
         }
@@ -58,7 +59,10 @@ namespace ariel {
         rowStart = std::min(row,rowStart);
         switch (direction) {
             case Direction::Horizontal: {
-                int boardCounter = col;
+                if (col + wordSize == UINT_MAX) {
+                    throw std::out_of_range("Too high range!");
+                }
+                unsigned int boardCounter = col;
                 for (int i = 0; i < wordSize; ++i) {
                     board[row][boardCounter] = word.at(i);
                     boardCounter++;
@@ -68,7 +72,10 @@ namespace ariel {
                 break;
             }
             case Direction::Vertical: {
-                int boardCounter = row;
+                if (row + wordSize == UINT_MAX) {
+                    throw std::out_of_range("Too high range!");
+                }
+                unsigned int boardCounter = row;
                 for (int i = 0; i < wordSize; ++i) {
                     board[boardCounter][col] = word.at(i);
                     boardCounter++;
@@ -84,7 +91,7 @@ namespace ariel {
         if (board.empty()) {
             cout << "_________\n__Empty__\n_________" << endl;
         }
-        int rowCounter = rowStart-1;
+        unsigned int rowCounter = rowStart-1;
         cout << rowCounter++ << ": ___";
         for (int i = colStart; i <= colEnd; ++i) {
             cout << "_";

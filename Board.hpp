@@ -10,17 +10,16 @@
 namespace ariel {
     class Board {
     public:
-        std::string read(int row, int col, Direction direction, int length);
-        void post(int row, int col, Direction direction, const std::string &word);
+        std::string read(unsigned int row, unsigned int col, Direction direction, int length);
+        void post(unsigned int row, unsigned int col, Direction direction, const std::string &word);
         void show();
 
     private:
-        std::map<int,std::map<int,std::string>> board;
-
-        int rowStart = INT_MAX;
-        int colStart = INT_MAX;
-        int colEnd = 0;
-        int rowEnd = 0;
+        std::map<unsigned int,std::map<unsigned int,std::string>> board;
+        unsigned int rowStart = UINT_MAX;
+        unsigned int colStart = UINT_MAX;
+        unsigned int colEnd = 0;
+        unsigned int rowEnd = 0;
     };
 }
 
