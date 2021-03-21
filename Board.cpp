@@ -7,7 +7,6 @@
 using std::cout;
 using std::endl;
 using std::string;
-using std::vector;
 
 namespace ariel {
     string Board::read(unsigned int row, unsigned int col, Direction direction, int length) {
@@ -90,17 +89,24 @@ namespace ariel {
     void Board::show() {
         if (board.empty()) {
             cout << "_________\n__Empty__\n_________" << endl;
+            return;
         }
-        unsigned int rowCounter = rowStart-1;
-        cout << rowCounter++ << ": ___";
-        for (int i = colStart; i <= colEnd; ++i) {
+        unsigned int rowCounter = rowStart - 1;
+        if (rowStart == 0) {
+            cout << -1 << ": ___";
+            rowCounter++;
+        }
+        else {
+            cout << rowCounter++ << ": ___";
+        }
+        for (unsigned int i = colStart; i <= colEnd; ++i) {
             cout << "_";
         }
         cout << "___" << endl;
 
-        for (int i = rowStart; i <= rowEnd; ++i) {
+        for (unsigned int i = rowStart; i <= rowEnd; ++i) {
             cout << rowCounter++ <<": ___";
-            for (int j = colStart; j <= colEnd; ++j) {
+            for (unsigned int j = colStart; j <= colEnd; ++j) {
                 if (!board[i][j].empty()) {
                     cout << board[i][j];
                 }
@@ -111,7 +117,7 @@ namespace ariel {
             cout << "___" << endl;
         }
         cout << rowCounter++ << ": ___";
-        for (int i = colStart; i <= colEnd; ++i) {
+        for (unsigned int i = colStart; i <= colEnd; ++i) {
             cout << "_";
         }
         cout << "___" << endl;
