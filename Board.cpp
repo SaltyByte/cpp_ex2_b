@@ -4,9 +4,7 @@
 #include <string>
 #include <algorithm>
 
-using std::cout;
-using std::endl;
-using std::string;
+using namespace std;
 
 namespace ariel {
     string Board::read(unsigned int row, unsigned int col, Direction direction, int length) {
@@ -57,7 +55,7 @@ namespace ariel {
         if (word.empty()) {
             return;
         }
-        const int wordSize = word.size();
+        const unsigned int wordSize = word.size();
         colStart = std::min(col,colStart);
         rowStart = std::min(row,rowStart);
         switch (direction) {
@@ -66,7 +64,7 @@ namespace ariel {
                     throw std::out_of_range("Too high range!");
                 }
                 unsigned int boardCounter = col;
-                for (int i = 0; i < wordSize; ++i) {
+                for (unsigned int i = 0; i < wordSize; ++i) {
                     board[row][boardCounter] = word.at(i);
                     boardCounter++;
                 }
@@ -79,7 +77,7 @@ namespace ariel {
                     throw std::out_of_range("Too high range!");
                 }
                 unsigned int boardCounter = row;
-                for (int i = 0; i < wordSize; ++i) {
+                for (unsigned int i = 0; i < wordSize; ++i) {
                     board[boardCounter][col] = word.at(i);
                     boardCounter++;
                 }

@@ -132,7 +132,7 @@ TEST_CASE ("Testing Post and Read") {
 
     Board *board3 = new Board;
     // random 30 words with random length
-    for (int i = 0; i < 30; ++i) {
+    for (unsigned int i = 0; i < 30; ++i) {
         int randNum = rand() % 50 + 1;
         string str;
         for (int j = 0; j < randNum; ++j) {
@@ -148,7 +148,7 @@ TEST_CASE ("Testing Post and Read") {
 
     Board *board4 = new Board;
     // random 30 words
-    for (int i = 0; i < 30; ++i) {
+    for (unsigned int i = 0; i < 30; ++i) {
         int randNum = rand() % 50 + 1; //  random length 1 - 50
         string str;
         for (int j = 0; j < randNum; ++j) {
