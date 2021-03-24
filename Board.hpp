@@ -2,7 +2,6 @@
 #define EX_2_A_BOARD_HPP
 
 #include <string>
-#include <vector>
 #include <map>
 #include <climits>
 #include "Direction.hpp"
