@@ -13,6 +13,8 @@ TEST_CASE ("Testing Post and Read") {
 
     board->show(); // should work and not throw exception
 
+    CHECK(board->read(0, 0, Direction::Horizontal, 11) == "___________");
+
     board->post(0, 0, Direction::Horizontal, "Hi alex, nice to meet you");
     board->post(1, 0, Direction::Horizontal, "Im still learning English, so please speak slowly");
     board->post(2, 0, Direction::Horizontal, "I just started working here. Im the new software developer");
@@ -166,15 +168,9 @@ TEST_CASE ("Testing Post and Read") {
 TEST_CASE("Testing Throws") {
     Board *board = new Board;
 
-    // test empty board
-    CHECK_THROWS(board->read(0,0,Direction::Vertical,1));
-    CHECK_THROWS(board->read(0,0,Direction::Horizontal,1));
-
-
     board->post(0, 0, Direction::Horizontal, "Hi alex, nice to meet you");
     board->post(1, 0, Direction::Horizontal, "Im still learning English, so please speak slowly");
     board->post(2, 0, Direction::Horizontal, "I just started working here. Im the new software developer");
-
 
     // test negative length
     CHECK_THROWS(board->read(1,0,Direction::Vertical,-1));

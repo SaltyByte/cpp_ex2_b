@@ -11,10 +11,14 @@ using std::string;
 namespace ariel {
     string Board::read(unsigned int row, unsigned int col, Direction direction, int length) {
         if (length < 0) {
-            throw std::out_of_range("length needs to be 1 or higher");
+            throw std::out_of_range("length cannot be negative");
         }
         if (board.empty()){
-            throw std::out_of_range("empty board");
+            string ret;
+            for (int i = 0; i < length; ++i) {
+                ret += '_';
+            }
+            return ret;
         }
 
         string ret;
@@ -22,7 +26,7 @@ namespace ariel {
             case Direction::Vertical:{
                 unsigned int boardCounter = row;
                 for (int i = 0; i < length; ++i) {
-                    if (board.empty() || board[boardCounter].empty() || board[boardCounter][col].empty()) {
+                    if (board.find(boardCounter) == board.end() || board[boardCounter].find(col) == board[boardCounter].end()) {
                         ret.append("_");
                     }
                     else {
@@ -35,7 +39,7 @@ namespace ariel {
             case Direction::Horizontal:{
                 unsigned int boardCounter = col;
                 for (int i = 0; i < length; ++i) {
-                    if (board.empty() || board[row].empty() || board[row][boardCounter].empty()) {
+                    if (board.find(row) == board.end() || board[row].find(boardCounter) == board[row].end()) {
                         ret.append("_");
                     }
                     else {
