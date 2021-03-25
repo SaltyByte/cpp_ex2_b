@@ -8,9 +8,6 @@ using namespace std;
 
 namespace ariel {
     string Board::read(unsigned int row, unsigned int col, Direction direction,unsigned int length) {
-        if (length < 0) {
-            throw std::out_of_range("length cannot be negative");
-        }
         if (board.empty()){
             string ret;
             for (int i = 0; i < length; ++i) {
