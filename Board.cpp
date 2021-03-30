@@ -4,18 +4,16 @@
 #include <string>
 #include <algorithm>
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace ariel {
-    string Board::read(unsigned int row, unsigned int col, Direction direction, int length) {
-        if (length < 0) {
-            throw std::out_of_range("length needs to be 1 or higher");
-        }
+    string Board::read(unsigned int row, unsigned int col, Direction direction,unsigned int length) {
         if (board.empty()){
-            throw std::out_of_range("empty board");
+            string ret;
+            for (int i = 0; i < length; ++i) {
+                ret += '_';
+            }
+            return ret;
         }
 
         string ret;
@@ -23,7 +21,7 @@ namespace ariel {
             case Direction::Vertical:{
                 unsigned int boardCounter = row;
                 for (int i = 0; i < length; ++i) {
-                    if (board.empty() || board[boardCounter].empty() || board[boardCounter][col].empty()) {
+                    if (board.find(boardCounter) == board.end() || board[boardCounter].find(col) == board[boardCounter].end()) {
                         ret.append("_");
                     }
                     else {
@@ -36,7 +34,7 @@ namespace ariel {
             case Direction::Horizontal:{
                 unsigned int boardCounter = col;
                 for (int i = 0; i < length; ++i) {
-                    if (board.empty() || board[row].empty() || board[row][boardCounter].empty()) {
+                    if (board.find(row) == board.end() || board[row].find(boardCounter) == board[row].end()) {
                         ret.append("_");
                     }
                     else {
@@ -54,7 +52,7 @@ namespace ariel {
         if (word.empty()) {
             return;
         }
-        const int wordSize = word.size();
+        const unsigned int wordSize = word.size();
         colStart = std::min(col,colStart);
         rowStart = std::min(row,rowStart);
         switch (direction) {
@@ -63,7 +61,7 @@ namespace ariel {
                     throw std::out_of_range("Too high range!");
                 }
                 unsigned int boardCounter = col;
-                for (int i = 0; i < wordSize; ++i) {
+                for (unsigned int i = 0; i < wordSize; ++i) {
                     board[row][boardCounter] = word.at(i);
                     boardCounter++;
                 }
@@ -76,7 +74,7 @@ namespace ariel {
                     throw std::out_of_range("Too high range!");
                 }
                 unsigned int boardCounter = row;
-                for (int i = 0; i < wordSize; ++i) {
+                for (unsigned int i = 0; i < wordSize; ++i) {
                     board[boardCounter][col] = word.at(i);
                     boardCounter++;
                 }
@@ -90,17 +88,24 @@ namespace ariel {
     void Board::show() {
         if (board.empty()) {
             cout << "_________\n__Empty__\n_________" << endl;
+            return;
         }
-        unsigned int rowCounter = rowStart-1;
-        cout << rowCounter++ << ": ___";
-        for (int i = colStart; i <= colEnd; ++i) {
+        unsigned int rowCounter = rowStart - 1;
+        if (rowStart == 0) {
+            cout << -1 << ": ___";
+            rowCounter++;
+        }
+        else {
+            cout << rowCounter++ << ": ___";
+        }
+        for (unsigned int i = colStart; i <= colEnd; ++i) {
             cout << "_";
         }
         cout << "___" << endl;
 
-        for (int i = rowStart; i <= rowEnd; ++i) {
+        for (unsigned int i = rowStart; i <= rowEnd; ++i) {
             cout << rowCounter++ <<": ___";
-            for (int j = colStart; j <= colEnd; ++j) {
+            for (unsigned int j = colStart; j <= colEnd; ++j) {
                 if (!board[i][j].empty()) {
                     cout << board[i][j];
                 }
@@ -111,7 +116,7 @@ namespace ariel {
             cout << "___" << endl;
         }
         cout << rowCounter++ << ": ___";
-        for (int i = colStart; i <= colEnd; ++i) {
+        for (unsigned int i = colStart; i <= colEnd; ++i) {
             cout << "_";
         }
         cout << "___" << endl;

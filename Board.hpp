@@ -2,7 +2,6 @@
 #define EX_2_A_BOARD_HPP
 
 #include <string>
-#include <vector>
 #include <map>
 #include <climits>
 #include "Direction.hpp"
@@ -10,7 +9,7 @@
 namespace ariel {
     class Board {
     public:
-        std::string read(unsigned int row, unsigned int col, Direction direction, int length);
+        std::string read(unsigned int row, unsigned int col, Direction direction,unsigned int length);
         void post(unsigned int row, unsigned int col, Direction direction, const std::string &word);
         void show();
 

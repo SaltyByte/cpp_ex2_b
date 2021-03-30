@@ -11,6 +11,10 @@ TEST_CASE ("Testing Post and Read") {
     // Testing horizontal posting
     Board *board = new Board;
 
+    board->show(); // should work and not throw exception
+
+    CHECK(board->read(0, 0, Direction::Horizontal, 11) == "___________");
+
     board->post(0, 0, Direction::Horizontal, "Hi alex, nice to meet you");
     board->post(1, 0, Direction::Horizontal, "Im still learning English, so please speak slowly");
     board->post(2, 0, Direction::Horizontal, "I just started working here. Im the new software developer");
@@ -28,6 +32,7 @@ TEST_CASE ("Testing Post and Read") {
     CHECK(board->read(5, 0, Direction::Horizontal, 26) == "I know a good place nearby");
     CHECK(board->read(6, 0, Direction::Horizontal, 56) == "If you have a moment, I would love your thoughts on this");
     CHECK(board->read(50, 50, Direction::Horizontal, 21) == "New string right here");
+    CHECK(board->read(50, 50, Direction::Horizontal, 0) == "");
 
     CHECK(board->read(0, 4, Direction::Horizontal, 10) == "lex, nice ");
     CHECK(board->read(0, 3, Direction::Horizontal, 5) == "alex,");
@@ -76,6 +81,7 @@ TEST_CASE ("Testing Post and Read") {
     CHECK(board->read(1000, 1000, Direction::Vertical, 7) == "_______");
     CHECK(board->read(0, 0, Direction::Horizontal, 0) == "");
     CHECK(board->read(0, 1, Direction::Horizontal, 0) == "");
+    CHECK(board->read(10000, 10000, Direction::Vertical, 0) == "");
 
     delete board;
 
@@ -124,25 +130,47 @@ TEST_CASE ("Testing Post and Read") {
 
     delete board2;
 
+    Board *board3 = new Board;
+    // random 30 words with random length
+    for (unsigned int i = 0; i < 30; ++i) {
+        int randNum = rand() % 50 + 1;
+        string str;
+        for (int j = 0; j < randNum; ++j) {
+            char letters[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*() ";
+            char randChar = letters[rand() % 63];
+            str += randChar;
+        }
+        board3->post(i,0,Direction::Horizontal,str);
+        CHECK(board3->read(i, 0, Direction::Horizontal, randNum) == str);
+    }
+    delete board3;
+
+
+    Board *board4 = new Board;
+    // random 30 words
+    for (unsigned int i = 0; i < 30; ++i) {
+        int randNum = rand() % 50 + 1; //  random length 1 - 50
+        string str;
+        for (int j = 0; j < randNum; ++j) {
+            char letters[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*() ";
+            char randChar = letters[rand() % 63];
+            str += randChar;
+        }
+        board4->post(0,i,Direction::Vertical,str);
+        CHECK(board4->read(0, i, Direction::Vertical, randNum) == str);
+    }
+
+    delete board4;
+
 }
 
 
 TEST_CASE("Testing Throws") {
     Board *board = new Board;
 
-    // test empty board
-    CHECK_THROWS(board->read(0,0,Direction::Vertical,1));
-    CHECK_THROWS(board->read(0,0,Direction::Horizontal,1));
-
-
     board->post(0, 0, Direction::Horizontal, "Hi alex, nice to meet you");
     board->post(1, 0, Direction::Horizontal, "Im still learning English, so please speak slowly");
     board->post(2, 0, Direction::Horizontal, "I just started working here. Im the new software developer");
-    board->post(3, 0, Direction::Horizontal, "How long have you been working here?");
-    board->post(4, 0, Direction::Horizontal, "Lets get a coffee sometime");
-    board->post(5, 0, Direction::Horizontal, "I know a good place nearby");
-    board->post(6, 0, Direction::Horizontal, "If you have a moment, I would love your thoughts on this");
-
 
     // test negative length
     CHECK_THROWS(board->read(1,0,Direction::Vertical,-1));
