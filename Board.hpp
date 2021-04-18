@@ -15,8 +15,10 @@ namespace ariel {
 
     private:
         std::map<unsigned int,std::map<unsigned int,std::string>> board;
+        // Max right down most side
         unsigned int rowStart = UINT_MAX;
         unsigned int colStart = UINT_MAX;
+        // Max left up most side
         unsigned int colEnd = 0;
         unsigned int rowEnd = 0;
     };
