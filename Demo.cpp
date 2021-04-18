@@ -60,7 +60,7 @@ int main() {
     // testing empty spaces
     cout << board->read(7, 0, Direction::Horizontal, 7) == ); // prints: "_______"
     cout << board->read(8, 0, Direction::Horizontal, 7) == ); // prints: "_______"
-    cout << board->read(9, 0, Direction::Vertical, 11) == ); // prints: "___________"
+    cout << board->read(9, 0, Direction::Vertical, 11) == ); // prints: "____ints: "_______"
     cout << board->read(0, 58, Direction::Vertical, 7) == ); // prints: "_______"
     cout << board->read(100, 100, Direction::Horizontal, 7) == ); // prints: "_______"
     cout << board->read(100, 100, Direction::Vertical, 7) == "_______"); // prints: "TM a"
@@ -68,7 +68,7 @@ int main() {
     cout << board->read(1000, 1000, Direction::Vertical, 7) == "_______"); // prints: "TM a"
     cout << board->read(0, 0, Direction::Horizontal, 0) == ""); // prints: "TM a"
     cout << board->read(0, 1, Direction::Horizontal, 0) == ""); // prints: "TM a"
-    cout << board->read(10000, 10000, Direction::Vertical, 0) == ""); // prints: "TM a"
+    cout << board->read(10000, 10000, Direction::Vertical, 0) == ""); // prTM a"
 
 }
 
